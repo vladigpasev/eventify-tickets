@@ -15,7 +15,7 @@ type Props = {
   params: { id: string }
   searchParams: { [key: string]: string | string[] | undefined }
 }
-
+//@ts-ignore
 function formatDateTime(dateTimeString) {
   const options = {
     year: 'numeric',
@@ -27,14 +27,10 @@ function formatDateTime(dateTimeString) {
   };
 
   // Format the date with Intl.DateTimeFormat and convert it to the desired format
+  //@ts-ignore
   const formattedDate = new Intl.DateTimeFormat('en-GB', options).format(new Date(dateTimeString));
   return formattedDate.replace(/\//g, '.').replace(/, /, ', ');
 }
-
-// Example Usage
-const originalDateTime = "02/15/2024, 10:16 PM";
-const formattedDateTime = formatDateTime(originalDateTime);
-console.log(formattedDateTime);
 
 
 async function isValidToken(token: any) {
