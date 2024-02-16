@@ -160,11 +160,11 @@ async function Ticket({ params }: { params: { ticket_token: string } }) {
                       <div className="font-semibold">{currentCustomer.firstname} {currentCustomer.lastname}</div>
 
                     </div>
-                    {/* <div className="flex flex-col mx-auto">
-                      <span className="">Class</span>
-                      <div className="font-semibold">Economic</div>
+                     <div className="flex flex-col mx-auto">
+                      <div className="font-semibold">{currentCustomer.guestCount} pax</div>
 
                     </div>
+                    {/*
                     <div className="flex flex-col">
                       <span className="">Seat</span>
                       <div className="font-semibold">12 E</div>
