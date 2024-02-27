@@ -94,7 +94,7 @@ async function Ticket({ params }: { params: { ticket_token: string } }) {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-center bg-cover bgstyle">
+      <div className="flex flex-col items-center justify-center min-h-screen bg-center bg-cover bgstyle text-black">
         <div className="absolute bg-blue-900 opacity-80 inset-0 z-0"></div>
         <div className="max-w-md w-full h-full mx-auto z-10 bg-blue-900 rounded-3xl">
           <div className="flex flex-col">
