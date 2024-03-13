@@ -9,6 +9,7 @@ import jwt from 'jsonwebtoken';
 import { cookies } from 'next/headers'
 import { notFound } from 'next/navigation';
 import QRCode from 'react-qr-code';
+//import QRCode from 'qrcode';
 
 const db = drizzle(sql);
 
@@ -98,9 +99,9 @@ async function Ticket({ params }: { params: { ticket_token: string } }) {
         <div className="absolute bg-blue-900 opacity-80 inset-0 z-0"></div>
         <div className="max-w-md w-full h-full mx-auto z-10 bg-blue-900 rounded-3xl">
           <div className="flex flex-col">
-            <div className="bg-white relative drop-shadow-2xl  rounded-3xl p-4 m-4">
+            <div className="bg-white dark:bg-white relative drop-shadow-2xl rounded-3xl p-4 m-4 ticketbox" id='ticketbox'>
               <div className="flex-none sm:flex">
-                <div className=" relative h-32 w-32   sm:mb-0 mb-3 hidden">
+                <div className="relative h-32 w-32  sm:mb-0 mb-3 hidden">
 
                   <img src="https://tailwindcomponents.com/storage/avatars/njkIbPhyZCftc4g9XbMWwVsa7aGVPajYLRXhEeoo.jpg" alt="aji" className=" w-32 h-32 object-cover rounded-2xl" />
                   <a href="#"
@@ -175,7 +176,7 @@ async function Ticket({ params }: { params: { ticket_token: string } }) {
                   <div className="flex flex-col py-5  justify-center text-sm ">
                     <h6 className="font-bold text-center ">Ticket</h6>
                     {/*@ts-ignore*/}
-                    <div className="w-full flex items-center justify-center mt-5"><QRCode value={currentCustomer.ticketToken} size={128} /></div>
+                    <div className="w-full flex items-center justify-center mt-5"><img src={`https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${currentCustomer.ticketToken}`} alt="Qr Code" /></div>
                   </div>
                 </div>
               </div>
