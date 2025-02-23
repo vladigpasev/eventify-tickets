@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>Билет за събитие</title>
+  <style>
+    /* Основни стилове за оформяне на билета */
+    body {
+      background: #1e3a8a; /* Тъмносин фон */
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .ticket {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      width: 350px;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .ticket header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .ticket header img {
+      width: 100px;
+      margin-bottom: 10px;
+    }
+    .ticket header h2 {
+      font-size: 1.5em;
+      margin: 0;
+      color: #1e3a8a;
+    }
+    .event-thumbnail {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+    .details p {
+      margin: 5px 0;
+      font-size: 0.95em;
+    }
+    .details p strong {
+      color: #1e3a8a;
+    }
+    .qr-code {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .qr-code img {
+      width: 150px;
+      height: 150px;
+    }
+    .ticket footer {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 0.85em;
+      color: #555;
+    }
+    /* Декоративни елементи, имитиращи заоблени ъгли */
+    .decor {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #1e3a8a;
+      border-radius: 50%;
+    }
+    .decor.left {
+      top: -10px;
+      left: -10px;
+    }
+    .decor.right {
+      top: -10px;
+      right: -10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="ticket">
+    <div class="decor left"></div>
+    <div class="decor right"></div>
+    <header>
+      <img src="logo.png" alt="Лого на събитието">
+      <h2>Име на събитието</h2>
+    </header>
+    
+    <img class="event-thumbnail" src="event-thumbnail.jpg" alt="Снимка от събитието">
+    
+    <div class="details">
+      <p><strong>Локация:</strong> Място на събитието</p>
+      <p><strong>Дата и час:</strong> 2024.04.26, 18:00</p>
+      <p><strong>Основен участник:</strong> Иван Иванов</p>
+      <p><strong>Брой гости:</strong> 2 pax</p>
+    </div>
+    
+    <div class="qr-code">
+      <!-- Тук генерираме QR код, който съдържа данни за билета -->
+      <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=exampleToken" alt="QR код">
+    </div>
+    
+    <footer>
+      <p>Този билет е валиден за вход.</p>
+    </footer>
+  </div>
+</body>
+</html>
