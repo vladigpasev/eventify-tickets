@@ -85,7 +85,7 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
 
               <div className="flex items-center justify-center">
                 <img
-                  src="https://images.unsplash.com/photo-1519666336592-e225a99dcd2f?ixlib=rb-1.2.1&w=300"
+                  src="https://fasching.eventify.bg/event-thumbnail.jpg"
                   alt="Fasching placeholder"
                   className="w-60 h-auto rounded-xl shadow-lg"
                 />
