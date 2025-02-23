@@ -88,6 +88,8 @@ export default async function TicketPage({ params }: { params: { ticket_token: s
     // Подготвяме "props" за Client компонента
     return (
       <TicketClient
+
+          //@ts-expect-error
         isFasching={true}
         faschingData={{
           ticket,
@@ -140,11 +142,11 @@ export default async function TicketPage({ params }: { params: { ticket_token: s
 
     return (
       <TicketClient
+
+        //@ts-expect-error
         isFasching={false}
         normalData={{
-          //@ts-expect-error
           customer: currentCustomer,
-          //@ts-expect-error
           event: currentEvent,
           formattedDateTime: formattedDT
         }}
