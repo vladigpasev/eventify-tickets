@@ -64,6 +64,13 @@
       "when": 1708293047798,
       "tag": "0008_calm_tombstone",
       "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "5",
+      "when": 1740838313947,
+      "tag": "0009_wide_namora",
+      "breakpoints": true
     }
   ]
 }

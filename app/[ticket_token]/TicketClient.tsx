@@ -1,13 +1,14 @@
 "use client";
 
-import React from 'react';
-import dynamic from 'next/dynamic';
-import QRCode from 'react-qr-code';
-import { motion } from 'framer-motion';
+import React from "react";
+import dynamic from "next/dynamic";
+import QRCode from "react-qr-code";
+import { motion } from "framer-motion";
 
 // Динамичен import на react-barcode, за да изключим SSR:
-const Barcode = dynamic(() => import('react-barcode'), { ssr: false });
+const Barcode = dynamic(() => import("react-barcode"), { ssr: false });
 
+// Типове
 interface FaschingData {
   ticket: {
     id: number;
@@ -17,6 +18,7 @@ interface FaschingData {
     guestEmail: string;
     guestClassGroup: string;
     ticketCode: string | null;
+    votedAt?: Date | null; // може да е Date | null
   };
   request: {
     id: number;
@@ -24,11 +26,39 @@ interface FaschingData {
     deleted: boolean;
   };
   ticketTypeLabel: string;
-  formattedDateTime: string; 
+  formattedDateTime: string;
+  voteLink?: string; // добавяме
 }
 
-export default function TicketClient(props: { faschingData?: FaschingData }) {
-  const { faschingData } = props;
+// При не-фашинг
+interface NormalData {
+  customer: {
+    firstname: string;
+    lastname: string;
+    email: string;
+    guestCount: number;
+    eventUuid: string;
+    ticketToken: string;
+  };
+  event: {
+    eventName: string;
+    userUuid: string;
+    description: string;
+    thumbnailUrl: string;
+    dateTime: string;
+    location: string;
+    price: number;
+    isFree: boolean;
+  };
+  formattedDateTime: string;
+}
+
+export default function TicketClient(props: {
+  isFasching?: boolean;
+  faschingData?: FaschingData;
+  normalData?: NormalData;
+}) {
+  const { isFasching, faschingData, normalData } = props;
 
   // Framer Motion animation
   const containerVariants = {
@@ -36,7 +66,7 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
     visible: {
       opacity: 1,
       scale: 1,
-      transition: { duration: 0.5, ease: 'easeOut' },
+      transition: { duration: 0.5, ease: "easeOut" },
     },
   };
 
@@ -48,13 +78,24 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
     </div>
   );
 
-  if (faschingData) {
-    const { ticket, ticketTypeLabel, formattedDateTime } = faschingData;
+  if (isFasching && faschingData) {
+    const {
+      ticket,
+      ticketTypeLabel,
+      formattedDateTime,
+      voteLink,
+    } = faschingData;
+
+    // Ако `votedAt` е null => не е гласувал
+    const hasVoted = !!ticket.votedAt; 
+    const canVote = !hasVoted && voteLink; // ако няма votedAt и имаме voteLink
+
     return (
       <div
         className="min-h-screen flex flex-col items-center justify-center bg-cover bg-no-repeat bg-center text-white relative"
         style={{
-          backgroundImage: "url('https://fasching.eventify.bg/event-thumbnail.jpg')"
+          backgroundImage:
+            "url('https://fasching.eventify.bg/event-thumbnail.jpg')",
         }}
       >
         {/* Тъмен overlay */}
@@ -80,6 +121,28 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
                   {ticketTypeLabel}
                 </div>
               </div>
+              <FancyDivider />
+              {/* Бутон за гласуване */}
+              <div className="mt-4 flex justify-center">
+                  {canVote ? (
+                    <motion.a
+                      href={voteLink}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-5 py-2 rounded-full shadow-lg transition flex items-center gap-2"
+                    >
+                      <span>Гласувай сега</span>
+                      <span>🗳</span>
+                    </motion.a>
+                  ) : (
+                    <button
+                      disabled
+                      className="bg-gray-300 text-gray-500 font-semibold px-5 py-2 rounded-full shadow cursor-not-allowed"
+                    >
+                      {hasVoted ? "Вече сте гласували" : "Гласуването не е достъпно"}
+                    </button>
+                  )}
+                </div>
 
               <FancyDivider />
 
@@ -103,9 +166,7 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
                   </div>
                   <div className="flex flex-col ml-auto">
                     <span className="text-xs text-gray-500">Клас/Група</span>
-                    <span className="font-semibold">
-                      {ticket.guestClassGroup}
-                    </span>
+                    <span className="font-semibold">{ticket.guestClassGroup}</span>
                   </div>
                 </div>
 
@@ -146,6 +207,8 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
                     />
                   )}
                 </div>
+
+                
               </div>
             </div>
           </div>
@@ -154,5 +217,12 @@ export default function TicketClient(props: { faschingData?: FaschingData }) {
     );
   }
 
+  // Не-фашинг сценарий (пример)
+  if (!isFasching && normalData) {
+    // ... твоя логика за другия тип event ...
+    return <div>Non-Fasching Ticket</div>;
+  }
+
+  // Ако няма нищо, не рендерираме
   return null;
 }
