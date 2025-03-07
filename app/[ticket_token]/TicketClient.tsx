@@ -121,28 +121,7 @@ export default function TicketClient(props: {
                   {ticketTypeLabel}
                 </div>
               </div>
-              <FancyDivider />
-              {/* Бутон за гласуване */}
-              <div className="mt-4 flex justify-center">
-                  {canVote ? (
-                    <motion.a
-                      href={voteLink}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-yellow-600 hover:bg-yellow-700 text-white font-semibold px-5 py-2 rounded-full shadow-lg transition flex items-center gap-2"
-                    >
-                      <span>Гласувай сега</span>
-                      <span>🗳</span>
-                    </motion.a>
-                  ) : (
-                    <button
-                      disabled
-                      className="bg-gray-300 text-gray-500 font-semibold px-5 py-2 rounded-full shadow cursor-not-allowed"
-                    >
-                      {hasVoted ? "Вече сте гласували" : "Гласуването не е достъпно"}
-                    </button>
-                  )}
-                </div>
+              
 
               <FancyDivider />
 
